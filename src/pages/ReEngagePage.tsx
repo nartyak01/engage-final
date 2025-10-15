@@ -485,7 +485,7 @@ export default function ReEngagePage() {
 
                     {/* View Batch Customers Button */}
                     <a 
-                      href={`../customer?id-batch=${selectedBatch.id}`}
+                      href={`https://admin.hebesbychloe.com//customer?id-batch=${selectedBatch.id}`}
                       className="w-full px-4 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors flex items-center justify-center gap-2 mb-6"
                     >
                       <Users className="w-4 h-4" />
