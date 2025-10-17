@@ -51,17 +51,20 @@ export default function ReEngagePage() {
       const updated = { 
         ...selectedBatch, 
         assignedRep: employeeName,
-        status: 'assigned' as const
+        status: employeeId === '0' ? 'new' as const : 'assigned' as const
       };
       
-      // Update assignedDate if not set
-      if (!selectedBatch.assignedDate || selectedBatch.assignedDate === '-') {
+      // Update assignedDate if not set and not unassigned
+      if (employeeId !== '0' && (!selectedBatch.assignedDate || selectedBatch.assignedDate === '-')) {
         const today = new Date();
         updated.assignedDate = today.toLocaleDateString('en-US', { 
           month: 'short', 
           day: 'numeric', 
           year: 'numeric' 
         });
+      } else if (employeeId === '0') {
+        // Reset assignedDate for unassigned
+        updated.assignedDate = '-';
       }
       
       setSelectedBatch(updated);
@@ -279,6 +282,16 @@ export default function ReEngagePage() {
                                   onClick={() => setEditingBatchId(null)}
                                 />
                                 <div className="absolute top-0 left-0 bg-white border border-gray-200 rounded-lg shadow-lg py-1 min-w-[180px] z-20 max-h-[300px] overflow-y-auto">
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      handleUpdateBatch(batch.id, '0', 'Unassigned');
+                                      setEditingBatchId(null);
+                                    }}
+                                    className="w-full px-3 py-2 text-left text-sm hover:bg-gray-50 transition-colors"
+                                  >
+                                    Unassigned
+                                  </button>
                                   {employees.map((employee) => (
                                     <button
                                       key={employee.id}
@@ -430,6 +443,15 @@ export default function ReEngagePage() {
                                 onClick={() => setShowRepDropdown(false)}
                               />
                               <div className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg py-1 min-w-[180px] z-20 max-h-[300px] overflow-y-auto">
+                                <button
+                                  onClick={() => {
+                                    handleUpdateBatch(selectedBatch.id, '0', 'Unassigned');
+                                    setShowRepDropdown(false);
+                                  }}
+                                  className="w-full px-3 py-2 text-left text-sm hover:bg-gray-50 transition-colors"
+                                >
+                                  Unassigned
+                                </button>
                                 {employees.map((employee) => (
                                   <button
                                     key={employee.id}
