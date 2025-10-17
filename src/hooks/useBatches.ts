@@ -192,17 +192,20 @@ export const useBatches = ({ employees }: UseBatchesOptions) => {
           const updated = { 
             ...batch, 
             assignedRep: employeeName,
-            status: 'assigned' as const
+            status: employeeId === 0 ? 'new' as const : 'assigned' as const
           };
           
-          // Update assignedDate if it hasn't been set
-          if (!batch.assignedDate || batch.assignedDate === '-') {
+          // Update assignedDate if it hasn't been set and not unassigned
+          if (employeeId !== 0 && (!batch.assignedDate || batch.assignedDate === '-')) {
             const today = new Date();
             updated.assignedDate = today.toLocaleDateString('en-US', { 
               month: 'short', 
               day: 'numeric', 
               year: 'numeric' 
             });
+          } else if (employeeId === 0) {
+            // Reset assignedDate for unassigned
+            updated.assignedDate = '-';
           }
           
           return updated;
