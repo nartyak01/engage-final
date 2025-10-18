@@ -289,6 +289,7 @@ export default function ReEngagePage() {
                                       setEditingBatchId(null);
                                     }}
                                     className="w-full px-3 py-2 text-left text-sm hover:bg-gray-50 transition-colors"
+                                    style={{ display: 'hidden' }}
                                   >
                                     Unassigned
                                   </button>
