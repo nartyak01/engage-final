@@ -289,7 +289,7 @@ export default function ReEngagePage() {
                                       setEditingBatchId(null);
                                     }}
                                     className="w-full px-3 py-2 text-left text-sm hover:bg-gray-50 transition-colors"
-                                    style="display: none"
+                                    style={{ display: 'none' }}
                                   >
                                     Unassigned
                                   </button>
@@ -450,7 +450,7 @@ export default function ReEngagePage() {
                                     setShowRepDropdown(false);
                                   }}
                                   className="w-full px-3 py-2 text-left text-sm hover:bg-gray-50 transition-colors"
-                                  style="display: none"
+                                  style={{ display: 'none' }}
                                 >
                                   Unassigned
                                 </button>
